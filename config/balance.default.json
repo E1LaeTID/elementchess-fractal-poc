@@ -1,0 +1,48 @@
+{
+  "schema": "elementchess.balance.v1",
+  "version": "0.25.9",
+  "power": {
+    "minimum": 100,
+    "line_step": 50,
+    "line_coefficients_rows_0_to_16": [400, 350, 300, 250, 200, 150, 100, 50, 0, 50, 100, 150, 200, 250, 300, 350, 400],
+    "piece_scale": 20,
+    "orientation_bonus": 25,
+    "token_support_scale": 5
+  },
+  "element_relations": {
+    "neutral": 0,
+    "simple": 50,
+    "double": 100,
+    "triple": 150,
+    "active_sign": 1,
+    "passive_sign": -1,
+    "aggregation": "arithmetic_mean_per_line",
+    "propagation": "all_cells_with_same_element"
+  },
+  "combat": {
+    "geometries": ["avance", "horizontale", "diagonale"],
+    "defense_probability_anchor": 0.3333333333333333,
+    "probability_scale": 900,
+    "defense_probability_bounds": [0.12, 0.65],
+    "resolution": "seeded_random_draw_after_power_calculation",
+    "evaluation": "pure_before_failure_gauge"
+  },
+  "sudoku": {
+    "values": [1, 2, 3, 4, 5],
+    "complete_line_sum": 15,
+    "fallbacks": ["rotation_ligne", "rotation_colonne", "transposition", "transposition_inverse"],
+    "move_locked_player_tokens": false
+  },
+  "randomness": {
+    "seeded": true,
+    "record_seed": true,
+    "record_permutations": true
+  },
+  "reference_terminal_race": {
+    "attack_attempt_probability_per_round": 0.63,
+    "terrain_capture_probability_per_round": 0.12,
+    "checkmate_probability_per_round": 0.022,
+    "token_placements_distribution": [0, 1, 1, 2, 2],
+    "purpose": "neutral calibration baseline; replace with playtest telemetry"
+  }
+}
