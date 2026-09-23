@@ -1,4 +1,4 @@
-# ElementChess
+# ElementChess — transformer les échecs en jeu de stratégie stochastique
 
 ElementChess est une preuve de concept Python qui transforme les échecs,
 jeu de stratégie déterministe à information complète, en un jeu de stratégie
@@ -17,6 +17,8 @@ Le projet conserve les pièces et les mouvements des échecs, puis ajoute :
 Le prototype ne contient aucune ressource graphique externe et ne dépend ni
 d'un service réseau, ni de Steam. Son objectif est de rendre le concept
 jouable, observable et testable avant le portage C++/SFML.
+
+> English summary: a playable Python proof of concept that transforms classical chess into a stochastic strategy game with territorial grids, elemental states, probabilistic combat and adaptive balancing.
 
 ## Transformation générale
 
@@ -114,6 +116,46 @@ produits proposés à la carte et à leurs valeurs caloriques.
 Le changement de domaine est volontaire : le modèle passe d'un système de
 stocks et de transformations alimentaires à un système de listes, d'états et
 de transformations ludiques dépendant du temps.
+
+## Questions fréquentes
+
+### Qu'est-ce qu'ElementChess ?
+
+ElementChess est une transformation expérimentale des échecs. Les mouvements classiques restent présents, mais le plateau, les territoires, les éléments, les jetons et les probabilités ajoutent plusieurs axes stratégiques.
+
+### Est-ce un jeu d'échecs classique ?
+
+Non. Il utilise les pièces et une partie des règles des échecs comme référence, puis ajoute des conditions de victoire, des combats stochastiques et un système territorial.
+
+### Pourquoi le plateau comporte-t-il 17 × 17 cellules ?
+
+La grille mixte intercale les positions réservées aux pièces avec les cellules territoriales nécessaires aux valeurs, éléments et parcelles de 5 × 5.
+
+### La partie dépend-elle uniquement du hasard ?
+
+Non. Les décisions de placement, déplacement et orientation structurent les possibilités. Le hasard intervient dans certaines résolutions et le système d'équilibrage, sans remplacer la stratégie.
+
+### À quoi sert la Balance Map ?
+
+Elle mesure l'état de la partie et peut déclencher des permutations encadrées afin de limiter certains blocages et de maintenir des dilemmes entre stratégie échiquéenne, conquête territoriale et gestion du risque.
+
+### Faut-il installer Python pour tester la version Windows ?
+
+Non lorsque vous téléchargez l'archive publiée contenant `ElementChess.exe`. Python est seulement nécessaire pour exécuter le code source.
+
+### Existe-t-il un mode en ligne ou Steam ?
+
+Pas dans cette preuve de concept. Le dépôt valide d'abord les règles et le gameplay avant le portage C++/SFML et les futures fonctions réseau.
+
+### Le prototype est-il terminé ?
+
+Non. Il s'agit d'une version de test destinée à recueillir des retours sur les règles, l'équilibrage et l'expérience de jeu.
+
+## Modèle de référence et cas précédent
+
+- [Modèle fractal universel étendu](https://github.com/E1LaeTID/modele-fractal-universel-etendu)
+- [Carte calorique multilangage](https://github.com/E1LaeTID/carte-calorique-multilangage)
+- [Portail des projets E1LaeTID](https://e1laetid.github.io/)
 
 ## Licence
 
