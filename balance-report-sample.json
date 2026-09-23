@@ -1,0 +1,93 @@
+{
+  "seed": 426,
+  "iterations": 5000,
+  "geometries": [
+    {
+      "geometry": "avance",
+      "attack": {
+        "samples": 5000,
+        "minimum": 145,
+        "maximum": 500,
+        "average": 273.309,
+        "q10": 177,
+        "median": 255,
+        "q90": 380
+      },
+      "defense": {
+        "samples": 5000,
+        "minimum": 145,
+        "maximum": 500,
+        "average": 277.242,
+        "q10": 170,
+        "median": 260,
+        "q90": 387
+      },
+      "attack_win_probability": 0.662288,
+      "defense_win_probability": 0.337712,
+      "equality_probability": 0.0438
+    },
+    {
+      "geometry": "horizontale",
+      "attack": {
+        "samples": 5000,
+        "minimum": 120,
+        "maximum": 525,
+        "average": 279.756,
+        "q10": 177,
+        "median": 272,
+        "q90": 394
+      },
+      "defense": {
+        "samples": 5000,
+        "minimum": 120,
+        "maximum": 520,
+        "average": 285.201,
+        "q10": 180,
+        "median": 280,
+        "q90": 395
+      },
+      "attack_win_probability": 0.660157,
+      "defense_win_probability": 0.339843,
+      "equality_probability": 0.009
+    },
+    {
+      "geometry": "diagonale",
+      "attack": {
+        "samples": 5000,
+        "minimum": 170,
+        "maximum": 375,
+        "average": 264.835,
+        "q10": 185,
+        "median": 235,
+        "q90": 360
+      },
+      "defense": {
+        "samples": 5000,
+        "minimum": 120,
+        "maximum": 492,
+        "average": 264.217,
+        "q10": 157,
+        "median": 252,
+        "q90": 377
+      },
+      "attack_win_probability": 0.666675,
+      "defense_win_probability": 0.333325,
+      "equality_probability": 0.0032
+    }
+  ],
+  "sudoku": {
+    "samples": 5000,
+    "blocked_probability": 0.0444,
+    "forced_probability": 0.574,
+    "mean_minimum_candidates": 1.479
+  },
+  "terminal_race": {
+    "samples": 5000,
+    "three_failed_attacks": 0.2298,
+    "three_captured_terrains": 0.2586,
+    "stock_reaches_twenty_one": 0.2542,
+    "checkmate": 0.2574,
+    "censored": 0.0,
+    "average_terminal_round": 12.382
+  }
+}

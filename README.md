@@ -1,0 +1,111 @@
+# ElementChess
+
+ElementChess est une preuve de concept Python qui transforme les échecs,
+jeu de stratégie déterministe à information complète, en un jeu de stratégie
+stochastique à plusieurs conditions de victoire et de défaite.
+
+Le projet conserve les pièces et les mouvements des échecs, puis ajoute :
+
+- un support mixte de 17×17 cellules ;
+- neuf parcelles territoriales de 5×5 ;
+- des valeurs numériques de 1 à 5 ;
+- huit éléments actifs ou passifs ;
+- des jetons, des orientations et des combats probabilistes ;
+- un interstice entre les rondes ;
+- un système de permutation piloté par la Balance Map.
+
+Le prototype ne contient aucune ressource graphique externe et ne dépend ni
+d'un service réseau, ni de Steam. Son objectif est de rendre le concept
+jouable, observable et testable avant le portage C++/SFML.
+
+## Transformation générale
+
+```mermaid
+flowchart TD
+    A["Échecs 8×8"] --> B["Grille mixte octogonale et carrée"]
+    B --> C["Support logique 17×17"]
+    C --> D["Nombres, éléments et parcelles 5×5"]
+    D --> E["Tours et interstices"]
+    E --> F["Modèle fractal étendu"]
+    F --> G["Balance Map et cycles N+4"]
+    G --> H["ElementChess stochastique"]
+```
+
+La spécification conceptuelle suit cette transformation pas à pas :
+
+- [Transformation des échecs vers ElementChess](docs/ELEMENTCHESS.md)
+- [Formules d’attaque, de défense et d’équilibrage](BALANCE.md)
+- [Dictionnaire statistique adaptatif](docs/BALANCE_MAP_DICTIONARY.md)
+- [Paramètres de la Balance Map](config/balance-map.template.json)
+- [Publication GitHub et exécutable Windows](docs/REPOSITORY.md)
+
+## Télécharger et jouer sous Windows
+
+Les versions publiées proposent une archive `ElementChess-Windows-x64.zip`.
+Après extraction, un double-clic sur `ElementChess.exe` lance directement
+l'interface graphique, sans installer Python et sans ouvrir VS Code ou un
+terminal.
+
+L'exécutable est généré et testé automatiquement par GitHub Actions. Il n'est
+pas stocké dans le code source du dépôt afin de garder un historique léger et
+vérifiable.
+
+## Exécution
+
+Python 3.11 ou plus récent est recommandé. Aucune dépendance externe n'est
+requise.
+
+```bash
+python main.py
+```
+
+ou :
+
+```bash
+python -m elementchess
+```
+
+Tests :
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Rapport statistique reproductible :
+
+```bash
+python -m elementchess.balance_simulation --iterations 10000 --seed 426
+```
+
+## Commandes principales
+
+| Commande | Fonction |
+|---|---|
+| `1` ou `T` | Vue territoriale |
+| `2` ou `E` | Vue mixte pièces/terrain |
+| `Maj` maintenu | Affichage temporaire des nombres |
+| `Ctrl` maintenu | Potentiels d'attaque et de défense au survol |
+| `Alt` maintenu | Sélection défensive roi-tour |
+| `4` ou `H` | Roues et interstice |
+| `F1` ou `G` | Notice de jeu |
+| `F2` ou `L` | Scénarios de simulation |
+| `F11` | Plein écran |
+
+## Portée du dépôt
+
+Ce dépôt documente un cas d'application du **modèle fractal universel étendu**.
+Il succède au cas d'application consacré au modèle de restaurant, dans lequel
+la même famille de structures reliait les stocks alimentaires réels aux
+produits proposés à la carte et à leurs valeurs caloriques.
+
+Le changement de domaine est volontaire : le modèle passe d'un système de
+stocks et de transformations alimentaires à un système de listes, d'états et
+de transformations ludiques dépendant du temps.
+
+## Licence
+
+Le code et la documentation sont publiés sous l'**ElementChess Public
+Evaluation License 1.0**. La consultation, l'exécution, les tests et les forks
+non commerciaux sont permis. Toute exploitation commerciale, redistribution
+d'un exécutable modifié ou publication sur une plateforme commerciale exige
+une autorisation écrite distincte.

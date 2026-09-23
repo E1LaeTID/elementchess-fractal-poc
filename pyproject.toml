@@ -1,0 +1,12 @@
+[project]
+name = "elementchess-console"
+version = "0.26.2"
+description = "Prototype de référence et laboratoire d'équilibrage ElementChess"
+requires-python = ">=3.11"
+
+[project.scripts]
+elementchess = "elementchess.app:main"
+elementchess-balance = "elementchess.balance_simulation:main"
+
+[tool.unittest]
+start-directory = "tests"
