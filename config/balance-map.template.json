@@ -1,0 +1,94 @@
+{
+  "schema": "elementchess.balance-map.v2",
+  "status": "methods_defined_values_learned_from_games",
+  "principle": "the_dictionary_stores_estimators_not_fixed_phase_values",
+  "terrain_geometry": {
+    "classification": "derive_from_playable_cells_and_complete_local_lines",
+    "families": {
+      "A": {"occurrences": 1, "complete_rows": 3, "complete_columns": 3},
+      "B": {"occurrences": 2, "complete_rows": 3, "complete_columns": 2},
+      "C": {"occurrences": 2, "complete_rows": 2, "complete_columns": 3},
+      "D": {"occurrences": 4, "complete_rows": 2, "complete_columns": 2}
+    },
+    "tokens_required": "count_numeric_terrain_cells_from_board_geometry",
+    "double_constraint_cells": "count_intersections_of_complete_row_and_complete_column",
+    "single_constraint_cells": "tokens_required_minus_double_constraint_cells",
+    "captured_terrain": "exclude_from_all_numeric_estimators_and_cycles"
+  },
+  "token_draw_law": {
+    "values": [1, 2, 3, 4, 5],
+    "probabilities": "estimated_conditionally_from_remaining_stock_and_legal_candidate_lists",
+    "opening_draw_size": 5,
+    "following_draw_size": 2,
+    "completion_probability": "P(all_required_legal_values_obtained_by_draw_n | layout_family, current_grid_state, remaining_stock)",
+    "method": [
+      "build_legal_value_list_for_each_uncaptured_terrain_cell",
+      "solve_or_sample_each_uncaptured_terrain_separately",
+      "exclude_captured_terrains",
+      "rank_solutions_by_required_draw_iterations",
+      "sample_among_the_dominant_iteration_class"
+    ]
+  },
+  "phase_learning": {
+    "features": [
+      "empirical_round_rank",
+      "captured_terrain_ratio",
+      "filled_uncaptured_terrain_ratio",
+      "material_reduction_ratio",
+      "repulsed_attack_pressure",
+      "token_stock_saturation"
+    ],
+    "feature_weights": "fit_on_completed_reference_trajectories",
+    "limits": {
+      "early_upper": "first_empirical_tercile_of_progress_scores",
+      "late_lower": "second_empirical_tercile_of_progress_scores"
+    },
+    "rules": [
+      "no_fixed_round_boundary",
+      "phase_cannot_regress_within_a_game",
+      "reestimate_limits_only_between_games_or_in_the_laboratory"
+    ]
+  },
+  "measurement_at_N_plus_4": {
+    "horizon_rounds": 4,
+    "baseline": "simulate_or_estimate_state_at_N_plus_4_without_permutation",
+    "candidates": "simulate_or_estimate_each_admissible_numeric_or_elemental_permutation",
+    "metrics": [
+      "numeric_blockage_risk",
+      "attack_repulsion_probability",
+      "terrain_capture_probability_by_player",
+      "twenty_one_token_probability_by_player",
+      "checkmate_pressure_by_player",
+      "strategic_advantage_gap",
+      "territory_position_dilemma_score"
+    ],
+    "decision": "apply_only_if_candidate_reduces_blockage_or_improves_dilemma_without_reversing_acquired_advantage_or_distorting_terminal_risks",
+    "fallback": "no_permutation"
+  },
+  "element_law": {
+    "elements": ["water", "fire", "wind", "wood", "earth", "ice", "magmat", "thunder"],
+    "relations": ["active", "passive"],
+    "attack_repulsion_reference": "read_from_combat_rule_and_reestimate_conditionally_by_phase_and_geometry",
+    "cycle_condition": "compare_N_plus_4_counterfactuals_on_complete_global_rows_or_columns",
+    "purpose": "stabilize_competing_terminal_pressures_not_force_a_named_player_outcome"
+  },
+  "confidence": {
+    "estimator": "beta_binomial_for_binary_events_and_bootstrap_for_multimetric_outcomes",
+    "minimum_sample_size": "to_be_set_after_console_test_campaign",
+    "decision_uses": "confidence_intervals_not_point_estimates",
+    "insufficient_data": "observe_without_permutation"
+  },
+  "exclusions": {
+    "captured_terrain_numbers": "exclude_permanently",
+    "line_or_column_containing_a_chess_cell": "reject_whole_support",
+    "partial_segment": "forbidden",
+    "game_over": "disable_all_cycles",
+    "pending_move_or_orientation": "defer_decision",
+    "simulation_copy": "never_mutate_live_game"
+  },
+  "audit_record": [
+    "seed", "round_N", "phase", "learned_phase_limits", "observed_state",
+    "baseline_N_plus_4", "candidate_outcomes", "confidence_intervals",
+    "selected_action", "support", "direction", "reason"
+  ]
+}
