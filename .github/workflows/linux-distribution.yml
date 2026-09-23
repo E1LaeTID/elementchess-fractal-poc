@@ -1,0 +1,58 @@
+name: Linux distribution
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install native Python, Tk and display tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip python3-tk python3-venv xvfb
+          python3 -m venv .venv-build
+          .venv-build/bin/python -m pip install --upgrade pip
+          .venv-build/bin/python -m pip install -r requirements-build.txt
+      - name: Run tests
+        run: .venv-build/bin/python -m unittest discover -s tests -v
+      - name: Build portable application
+        run: .venv-build/bin/python -m PyInstaller --noconfirm --clean --log-level WARN ElementChess.spec
+      - name: Smoke-test graphical executable
+        shell: bash
+        run: |
+          set +e
+          xvfb-run -a timeout 5s dist/ElementChess/ElementChess
+          status=$?
+          set -e
+          if [ "$status" -ne 124 ]; then
+            echo "Le lancement Linux a échoué avec le statut $status"
+            exit "$status"
+          fi
+      - name: Package distribution
+        run: |
+          cp README-LINUX.txt dist/ElementChess/README.txt
+          tar -C dist -czf ElementChess-Linux-x64.tar.gz ElementChess
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ElementChess-Linux-x64
+          path: ElementChess-Linux-x64.tar.gz
+          if-no-files-found: error
+      - name: Attach distribution to tagged release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload "${{ github.ref_name }}" ElementChess-Linux-x64.tar.gz --clobber
+          else
+            gh release create "${{ github.ref_name }}" ElementChess-Linux-x64.tar.gz --generate-notes --title "ElementChess ${{ github.ref_name }}"
+          fi
