@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "textures": {
+    "piece.white.king": "textures/pieces/white_king.png",
+    "piece.black.king": "textures/pieces/black_king.png"
+  },
+  "fonts": {
+    "ui.regular": "fonts/ui_regular.ttf"
+  },
+  "sounds": {
+    "combat.rejected": "audio/combat_rejected.ogg",
+    "combat.captured": "audio/combat_captured.ogg"
+  },
+  "music": {
+    "match.default": "music/match_default.ogg"
+  }
+}
