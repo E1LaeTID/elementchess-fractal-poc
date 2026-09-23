@@ -50,6 +50,19 @@ L'exécutable est généré et testé automatiquement par GitHub Actions. Il n'e
 pas stocké dans le code source du dépôt afin de garder un historique léger et
 vérifiable.
 
+### Créer l'exécutable sans utiliser l'invite de commandes
+
+Le propriétaire du projet peut double-cliquer sur :
+
+```text
+CREER-EXECUTABLE-WINDOWS.bat
+```
+
+Le fichier vérifie le jeu, fabrique `dist/ElementChess.exe`, puis crée
+`ElementChess-Windows-x64.zip`. C'est cette archive qu'il faut déposer sur
+GitHub et transmettre aux testeurs. Les testeurs n'ont ensuite besoin ni de
+Python ni du fichier `main.py`.
+
 ## Exécution
 
 Python 3.11 ou plus récent est recommandé. Aucune dépendance externe n'est
